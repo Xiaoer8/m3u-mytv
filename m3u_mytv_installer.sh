@@ -11,8 +11,8 @@ NC='\033[0m' # No Color
 
 # 版本信息
 VERSION="1.0"
-AUTHOR="hiyuelin"
-TELEGRAM="https://t.me/x"
+AUTHOR="m3u"
+TELEGRAM="https://m3u"
 
 print_logo() {
     echo -e "${CYAN}"
@@ -72,8 +72,8 @@ deploy_m3u_proxy() {
     touch $m3u_dir/iptv.m3u $m3u_dir/whitelist.txt $m3u_dir/ip_whitelist.txt $m3u_dir/m3u_proxy.log $m3u_dir/security_config.json
     
     # 3. 设置端口
-    read -p "请输入要使用的端口 (默认 5001): " port
-    port=${port:-5001}
+    read -p "请输入要使用的端口 (默认 5011): " port
+    port=${port:-5011}
     
     # 4. 自动获取服务器 IP 地址并生成代理服务器地址
     echo "正在尝试获取服务器 IP 地址..."
@@ -91,9 +91,9 @@ deploy_m3u_proxy() {
 
     # 5. 设置管理员账户和密码
     read -p "请设置管理员用户名 (默认 admin): " admin_username
-    admin_username=${admin_username:-admin}
-    read -p "请设置管理员密码 (默认 admin123): " admin_password
-    admin_password=${admin_password:-admin123}
+    admin_username=${admin_username:-aniu}
+    read -p "请设置管理员密码 (默认 aniu911): " admin_password
+    admin_password=${admin_password:-aniu911}
     
     # 创建 docker-compose.yml 文件
     cat > $m3u_dir/docker-compose.yml <<EOL
