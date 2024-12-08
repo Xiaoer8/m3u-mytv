@@ -11,8 +11,7 @@ NC='\033[0m' # No Color
 
 # 版本信息
 VERSION="1.0"
-AUTHOR="m3u"
-TELEGRAM="https://m3u"
+
 
 print_logo() {
     echo -e "${CYAN}"
@@ -32,7 +31,17 @@ print_menu() {
     echo -e "${RED}0)${NC} 退出"
     echo
 }
-
+check_and_install_docker() {
+    if ! command -v docker &> /dev/null; then
+        echo -e "${YELLOW}Docker 未安装，正在安装...${NC}"
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo sh get-docker.sh
+        sudo usermod -aG docker $USER
+        echo -e "${GREEN}Docker 安装完成${NC}"
+    else
+        echo -e "${GREEN}Docker 已安Docekr${NC}"
+    fi
+}
 
 check_and_install_docker_compose() {
     if ! command -v docker-compose &> /dev/null; then
@@ -61,8 +70,8 @@ deploy_m3u_proxy() {
     touch $m3u_dir/iptv.m3u $m3u_dir/whitelist.txt $m3u_dir/ip_whitelist.txt $m3u_dir/m3u_proxy.log $m3u_dir/security_config.json
     
     # 3. 设置端口
-    read -p "请输入要使用的端口 (默认 5011): " port
-    port=${port:-5011}
+    read -p "请输入要使用的端口 (默认 5010): " port
+    port=${port:-5010}
     
     # 4. 自动获取服务器 IP 地址并生成代理服务器地址
     echo "正在尝试获取服务器 IP 地址..."
@@ -80,9 +89,9 @@ deploy_m3u_proxy() {
 
     # 5. 设置管理员账户和密码
     read -p "请设置管理员用户名 (默认 admin): " admin_username
-    admin_username=${admin_username:-aniu}
-    read -p "请设置管理员密码 (默认 aniu911): " admin_password
-    admin_password=${admin_password:-aniu911}
+    admin_username=${admin_username:-admin}
+    read -p "请设置管理员密码 (默认 admin123): " admin_password
+    admin_password=${admin_password:-admin123}
     
     # 创建 docker-compose.yml 文件
     cat > $m3u_dir/docker-compose.yml <<EOL
