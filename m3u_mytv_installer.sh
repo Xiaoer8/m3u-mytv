@@ -33,17 +33,6 @@ print_menu() {
     echo
 }
 
-check_and_install_docker() {
-    if ! command -v docker &> /dev/null; then
-        echo -e "${YELLOW}Docker 未安装，正在安装...${NC}"
-        curl -fsSL https://get.docker.com -o get-docker.sh
-        sudo sh get-docker.sh
-        sudo usermod -aG docker $USER
-        echo -e "${GREEN}Docker 安装完成${NC}"
-    else
-        echo -e "${GREEN}Docker 已安Docekr${NC}"
-    fi
-}
 
 check_and_install_docker_compose() {
     if ! command -v docker-compose &> /dev/null; then
